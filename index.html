@@ -77,12 +77,18 @@
 
     .hero { position: relative; min-height: min(690px, calc(100vh - 82px)); display: flex; align-items: center; overflow: hidden; isolation: isolate; background-color: #222b30; background-image: linear-gradient(90deg, rgba(7,24,34,.94) 0%, rgba(7,24,34,.83) 37%, rgba(7,24,34,.34) 73%, rgba(7,24,34,.12) 100%), url("hero-bg.jpg"); background-position: center, right center; background-size: cover; }
     .hero::after { position: absolute; z-index: -1; right: -120px; bottom: -250px; width: 550px; height: 550px; border: 1px solid rgba(255,217,102,.2); border-radius: 50%; content: ""; }
-    .hero-content { max-width: 730px; padding: 92px 0; color: white; }
+    .hero-layout { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,.85fr); align-items: center; gap: 48px; padding-block: 66px; }
+    .hero-content { color: white; }
     .hero .eyebrow { color: #ffdf7b; }
-    .hero h1 { max-width: 720px; margin-bottom: 22px; color: white; font-size: clamp(3rem, 6.7vw, 5.7rem); font-weight: 800; letter-spacing: -.065em; }
+    .hero h1 { margin-bottom: 22px; color: white; font-size: 4.1rem; font-weight: 800; }
     .hero h1 span { color: var(--gold); }
-    .hero-copy { max-width: 635px; margin-bottom: 32px; color: rgba(255,255,255,.83); font-size: clamp(1.05rem,1.8vw,1.2rem); }
+    .hero-copy { max-width: 635px; margin-bottom: 32px; color: rgba(255,255,255,.9); font-size: 1.15rem; }
     .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .hero-glance { padding: 26px; border: 1px solid rgba(255,217,102,.65); border-top: 3px solid var(--gold); border-radius: 8px; background: rgba(0,79,128,.78); backdrop-filter: blur(10px); color: white; }
+    .hero-glance h2 { color: var(--gold); font-size: 1.35rem; }
+    .hero-glance dl { margin-bottom: 0; }
+    .hero-glance dt { margin-top: 10px; font-weight: 800; }
+    .hero-glance dd { margin: 0; color: #f0f5f8; }
     .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border: 1px solid transparent; border-radius: 999px; background: var(--blue); color: white; font-size: .94rem; font-weight: 700; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; cursor: pointer; }
     .button:hover { transform: translateY(-2px); box-shadow: 0 9px 22px rgba(0,79,128,.2); }
     .button.gold { border: 1px solid rgba(255,217,102,.9); background: var(--gold-glass); color: #27333a; backdrop-filter: blur(6px); box-shadow: 0 4px 15px rgba(255,217,102,.4); }
@@ -91,9 +97,17 @@
     .text-link { display: inline-flex; align-items: center; gap: 8px; color: var(--blue); font-weight: 700; text-decoration: none; }
     .text-link:hover { color: #0876ae; }
 
-    .intro-copy { max-width: 700px; }
-    .intro-copy h2 { margin-bottom: 20px; font-size: clamp(2rem,4vw,3rem); letter-spacing: -.045em; }
-    .intro-copy p { color: var(--muted); font-size: 1.04rem; }
+    .capability-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+    .capability-card { padding: 24px; border: 1px solid var(--line); border-top: 3px solid var(--gold); border-radius: 8px; }
+    .capability-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+    .capability-card p { margin: 0; color: var(--muted); }
+    .featured-news { display: flex; flex-wrap: wrap; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+    .featured-news-photo { flex: 1 1 280px; min-width: 0; }
+    .featured-news-photo[hidden] { display: none; }
+    .featured-news-photo img { width: 100%; height: 100%; max-height: 320px; min-height: 200px; object-fit: cover; }
+    .featured-news-copy { flex: 2 1 350px; padding: 28px; }
+    .featured-news-copy h3 { margin-bottom: 10px; }
+    .featured-news-copy p { margin: 0; color: var(--muted); }
 
     .research-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
     .research-card { position: relative; min-height: 240px; padding: 30px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: white; transition: transform .2s ease, box-shadow .2s ease; }
@@ -102,24 +116,33 @@
     .card-index { display: inline-flex; width: 38px; height: 38px; align-items: center; justify-content: center; margin-bottom: 19px; border: 1px solid rgba(255,217,102,.9); border-radius: 12px; background: var(--gold-glass); color: #55420f; font-size: .8rem; font-weight: 800; box-shadow: 0 4px 15px rgba(255,217,102,.24); }
     .research-card h3 { margin-bottom: 12px; font-size: 1.23rem; }
     .research-card p { margin: 0; color: var(--muted); font-size: .96rem; }
-    .research-banner { padding: 38px 0; background: #faf9f3; text-align: center; }
-    .research-banner h1 { margin-bottom: 12px; font-size: 2.4rem; }
-    .research-banner p { margin: 0 auto 18px; max-width: 580px; color: var(--muted); }
-    .research-banner img { width: min(100%, 340px); height: auto; margin: auto; }
-    .methodology-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: 30px; }
-    .methodology-grid > div { border-top: 3px solid var(--gold); padding-top: 18px; }
+    .research-page { background: #f4f7fa; }
+    .research-banner { padding: 56px 0 42px; border-bottom: 3px solid var(--gold); background: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(135deg,#003354 0%,#004f80 100%); background-size: 24px 24px, 24px 24px, auto; text-align: center; }
+    .research-banner .eyebrow { color: var(--gold); }
+    .research-banner h1 { margin-bottom: 14px; color: white; font-size: 3rem; }
+    .research-page p, .research-page dd { font-size: 1.1rem; line-height: 1.75; }
+    .research-banner p { margin: 0 auto 20px; max-width: 720px; color: #e3eef5; }
+    .research-banner svg { display: block; width: min(100%,460px); height: auto; margin: auto; }
+    .research-page .section { padding: 54px 0; }
+    .research-page .section + .section { padding-top: 0; }
+    .research-page .section-heading h2 { font-size: 2.1rem; letter-spacing: 0; }
+    .research-page h3 { font-size: 1.35rem; }
+    .methodology-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+    .methodology-grid > div, .research-page .research-card { border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 26px; border-radius: 8px; background: white; box-shadow: var(--shadow); }
     .methodology-grid dt { margin-top: 12px; color: var(--ink); font-weight: 800; }
     .methodology-grid dd { margin: 4px 0 0; color: var(--muted); }
-    .facility-group + .facility-group { margin-top: 44px; }
-    .facility-group h2 { margin-bottom: 18px; }
-    .facility-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,290px),1fr)); gap: 18px; }
+    .facilities-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; }
     .facility-card { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
-    .facility-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: var(--wash); }
-    .facility-photo[hidden] { display: none; }
+    .facility-media { height: 240px; background: var(--blue-deep); }
+    .facility-photo { width: 100%; height: 100%; object-fit: cover; }
+    .facility-blueprint { display: grid; height: 100%; place-items: center; padding: 26px; background-image: linear-gradient(rgba(185,221,242,.16) 1px, transparent 1px), linear-gradient(90deg,rgba(185,221,242,.16) 1px, transparent 1px); background-size: 24px 24px; color: white; text-align: center; }
+    .facility-blueprint span { max-width: 360px; padding: 12px 16px; border-block: 1px solid var(--gold); background: var(--blue-deep); font: 800 1.15rem/1.4 "Manrope", sans-serif; overflow-wrap: anywhere; }
+    .facility-photo[hidden], .facility-blueprint[hidden] { display: none; }
     .facility-copy { padding: 22px; }
-    .facility-copy h3 { margin-bottom: 8px; font-size: 1.15rem; overflow-wrap: anywhere; }
+    .facility-copy h2 { margin-bottom: 8px; font-size: 1.25rem; overflow-wrap: anywhere; }
     .facility-copy p, .facility-copy ul { color: var(--muted); font-size: .94rem; }
     .facility-copy ul { margin: 0; padding-left: 20px; }
+    .facility-copy li + li { margin-top: 5px; }
 
     .supervisor-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; margin-bottom: 58px; }
     .supervisor-card { padding: 30px; border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: var(--radius); background: white; box-shadow: 0 9px 28px rgba(10,48,69,.055); }
@@ -224,9 +247,18 @@
     }
     @media (max-width: 900px) {
       .hero { min-height: 590px; background-position: center,65% center; }
+      .hero-layout { gap: 24px; }
+      .hero h1 { font-size: 3rem; }
       .people-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .profile-hero { grid-template-columns: minmax(210px,.75fr) 1.25fr; gap: 32px; }
       .profile-photo-wrap { height: 340px; }
+    }
+    @media (width < 768px) {
+      .hero-layout, .capability-grid, .facilities-grid { grid-template-columns: 1fr; }
+      .hero-layout { padding-block: 38px; }
+      .research-banner h1 { font-size: 2.1rem; }
+      .research-page .section-heading h2 { font-size: 1.85rem; }
+      .methodology-grid, .research-page .research-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .container { width: min(var(--content),calc(100% - 34px)); }
@@ -236,9 +268,8 @@
       .header-right { gap: 10px; }
       .inst-brand img { width: 92px; height: 54px; }
       .menu-toggle { width: 40px; height: 40px; }
-      .hero { min-height: 600px; background-image: linear-gradient(90deg,rgba(7,24,34,.91),rgba(7,24,34,.68)),url("hero-bg.jpg"); background-position: center,62% center; }
-      .hero-content { padding: 70px 0; }
-      .hero h1 { font-size: clamp(2.75rem,14vw,4rem); }
+      .hero { min-height: 0; background-image: linear-gradient(90deg,rgba(7,24,34,.91),rgba(7,24,34,.68)),url("hero-bg.jpg"); background-position: center,62% center; }
+      .hero h1 { font-size: 2.45rem; }
       .hero-copy { font-size: 1rem; }
       .supervisor-card, .contact-panel, .contact-aside { padding: 24px; }
       .research-grid, .supervisor-grid, .people-grid, .contact-layout { grid-template-columns: 1fr; }
@@ -486,7 +517,7 @@
       {
         date: "September 2026",
         title: "Participation in the 51st Leeds Lyon Symposium on Tribology",
-        description: "Prof. Morel Groper, Dr. Roman Goltzberg, and Avishai Dov represented the TriboMechanics Lab at the 51st Leeds Lyon Symposium on Tribology held in Lyon, France, from September 2\u20134, 2026, presenting our latest advancements in tribological research.",
+        description: "Prof. Morel Groper, Dr. Roman Goltzberg, and Avishai Dov represented the TriboMechanics Lab at the 51st Leeds Lyon Symposium on Tribology in Lyon, France, presenting our latest advancements in tribological research.",
         images: ["lyon_51.jpg"]
       }
     ];
@@ -504,38 +535,20 @@
     ];
 
     const researchThemes = [
-      { title: "Contact Mechanics", text: "Investigating how materials and coatings deform, generate friction, and wear under dry, mixed, and lubricated contact conditions." },
-      { title: "Lubrication & Cavitation", text: "Modeling thin-film flow and mass-conserving cavitation in bearings and mechanical seals, and testing predictions in water-lubricated systems." },
-      { title: "Advanced Tribometry", text: "Developing dedicated test benches and using classic tribometers to measure friction, wear, and contact behavior under representative operating conditions." },
-      { title: "Laser Surface Texturing", text: "Designing and testing laser-made microtextures to tailor friction, wear, and load support in mixed and hydrodynamic lubrication." }
+      { title: "Contact Mechanics & Wear Mechanisms", text: "We investigate friction, wear, and the degradation of materials and coatings in dry, boundary, mixed, and fully lubricated contacts. We study how load and surface geometry govern how damage develops." },
+      { title: "Hydrodynamic Lubrication & Cavitation Modeling", text: "We use mass-conserving cavitation algorithms and advanced CFD to model flow in bearings and mechanical seals. These models help predict where lubricant films break and reform, and how that changes load support." },
+      { title: "Laser Surface Texturing (LST) & Surface Engineering", text: "We design and fabricate controlled patterns of microscopic features to tailor friction, increase load-carrying capacity, and extend component life. We compare textured and untextured surfaces under equivalent conditions." },
+      { title: "Custom Tribometers & Experimental Diagnostics", text: "We develop specialized rigs that reproduce real-world motion and loading. High-precision, multi-sensor measurements help distinguish changes in friction, film behavior, and dynamic response." }
     ];
 
     const facilitiesData = [
-      { title: "Tribometry and Metrology", equipment: [
-        { name: "Bruker UMT TriboLab", image: "umt-tribolab.jpg", summary: "Modular test platform for characterizing friction and wear.", capabilities: ["Rotary and reciprocating test configurations", "Force and friction measurements under controlled test conditions"] },
-        { name: "Bruker Contour X-100 Profilometer", image: "contour-x100.jpg", summary: "Non-contact optical measurement of surface topography.", capabilities: ["3D surface height maps", "Roughness and surface texture characterization"] },
-        { name: "WYKO NT1100 3D Optical Profilometer", image: "wyko-nt1100.jpg", summary: "Optical profiling of textured and worn specimens.", capabilities: ["3-Dimensional Interactive Display of measured topography", "Surface height and texture analysis"] },
-        { name: "Polaron Emitech SC7640 Sputter Coater", image: "sc7640-sputter-coater.jpg", summary: "Prepares specimens for electron microscopy.", capabilities: ["Conductive coating by sputter deposition", "Helps reduce charging on insulating specimens"] },
-        { name: "FEI ESEM Quanta 200 Scanning Electron Microscope (SEM)", image: "quanta-200-sem.jpg", summary: "Electron microscopy for inspecting worn surfaces and materials.", capabilities: ["Environmental SEM imaging", "Inspection of wear tracks and surface morphology"] },
-        { name: "Mechanical Profilometer", summary: "Measures surface profiles by contact.", capabilities: ["Stylus-based line profiling"] }
-      ] },
-      { title: "Dedicated Test Benches", equipment: [
-        { name: "Water Lubricated Journal Bearing Test Bench", image: "journal-bearing-bench.jpg", summary: "Studies journal bearing behavior with water as the lubricant.", capabilities: ["Rotating journal and water lubrication circuit", "Experimental comparison with lubrication models"] },
-        { name: "Reciprocating Test Bench", image: "reciprocating-bench.jpg", summary: "Studies friction and wear under repeated back-and-forth motion.", capabilities: ["Linear reciprocating sliding", "Repeated contact testing"] },
-        { name: "Contact Mechanics Tester", image: "contact-mechanics-tester.jpg", imageAlt: "Schematic of the contact mechanics test setup", summary: "Investigates the response of loaded surfaces.", capabilities: ["Normal loading in a spherical contact setup", "Experimental comparison with contact mechanics models"] },
-        { name: "Block-on-Ring Test Bench", image: "block-on-ring-bench.jpg", summary: "Compares friction and wear of material pairs under sliding contact.", capabilities: ["Stationary block against a rotating ring", "Controlled contact loading"] }
-      ] },
-      { title: "Classic Tribometers", equipment: [
-        { name: "One-Pass Sliding Tribometer", image: "one-pass-tribometer.jpg", summary: "Examines friction during a single sliding pass.", capabilities: ["Single traverse across a specimen surface"] },
-        { name: "Pin-on-Disk Tribometer", image: "pin-on-disk.jpg", summary: "Compares sliding friction and wear of material pairs.", capabilities: ["Loaded pin against a rotating disk"] },
-        { name: "Fretting Wear Tester", image: "fretting-wear-tester.jpg", summary: "Studies wear from repeated small relative movements.", capabilities: ["Small-amplitude oscillatory contact"] },
-        { name: "Adhesive Wear Tester", image: "adhesive-wear-tester.jpg", summary: "Examines adhesive wear and material transfer between contacting surfaces.", capabilities: ["Roller-block configuration"] }
-      ] },
-      { title: "Auxiliary Equipment", equipment: [
-        { name: "Fiber Laser Marking Machine", image: "fiber-laser.jpg", summary: "Marks and patterns specimen surfaces.", capabilities: ["Localized laser processing"] },
-        { name: "Microhardness Testers", summary: "Compare hardness across materials and surface treatments.", capabilities: ["Localized indentation testing"] },
-        { name: "Viscometers", summary: "Characterize the flow properties of lubricants.", capabilities: ["Viscosity measurements for lubricant comparison"] }
-      ] }
+      { name: "Bruker UMT TriboLab", image: "umt-tribolab.jpg", summary: "A modular platform for comparing the friction and wear of materials, coatings, and lubricants under controlled conditions.", capabilities: ["Rotary and reciprocating test configurations", "Normal and friction force measurements", "Comparative testing of sliding material pairs"] },
+      { name: "Bruker Contour X-100 & WYKO NT1100 3D Optical Profilometers", image: "wyko-nt1100.jpg", summary: "Non-contact optical profiling reveals the shape of engineered textures and the material lost from worn specimens.", capabilities: ["3D surface height, roughness, and texture measurements", "Interactive 3D topography display on the WYKO NT1100", "Comparison of surface profiles before and after testing"] },
+      { name: "Water-Lubricated Journal Bearing Test Bench", image: "journal-bearing-bench.jpg", summary: "A dedicated rig for studying how a rotating journal and its supporting bearing behave with water as the lubricant.", capabilities: ["Rotating journal with a water-lubrication circuit", "Friction and lubrication-regime studies across operating conditions", "Experimental comparison with bearing and thin-film flow models"] },
+      { name: "Reciprocating Contact Mechanics Tester", image: "reciprocating-tester.jpg", summary: "Controlled tests of loaded contacts under repeated back-and-forth sliding and complementary spherical-contact experiments.", capabilities: ["Linear reciprocating sliding for repeated contact tests", "Friction and wear comparisons across specimen pairs", "Spherical-contact tests under normal load for comparison with contact models"] },
+      { name: "Block-on-Ring & Classic Tribometers Suite", image: "block-on-ring.jpg", summary: "A set of complementary fixtures for comparing sliding friction, wear, and material transfer across contact geometries.", capabilities: ["Block-on-ring and pin-on-disk tests with rotating counterparts", "One-pass sliding for a single traverse over a specimen", "Fretting wear testing with small-amplitude oscillation", "Roller-block adhesive wear and material transfer testing"] },
+      { name: "FEI ESEM Quanta 200 Scanning Electron Microscope & Polaron Emitech SC7640 Sputter Coater", image: "esem-quanta.jpg", summary: "Specimen preparation and electron microscopy for examining how surfaces change after tribological testing.", capabilities: ["Environmental SEM imaging of wear tracks and surface morphology", "Conductive sputter coatings to reduce charging on insulating specimens"] },
+      { name: "Surface Texturing & Fluid Characterization Suite", image: "laser-texturing.jpg", summary: "Tools for preparing textured specimens and measuring the surface and lubricant properties that influence contact behavior.", capabilities: ["Fiber laser marking and localized surface patterning", "Microhardness testers for localized indentation measurements", "Mechanical profilometer for stylus-based line profiles", "Viscometers for measuring lubricant viscosity"] }
     ];
 
     const app = document.getElementById("app");
@@ -616,27 +629,43 @@
       </article>`;
     }
 
-    function renderNews(limit = newsData.length) {
+    function renderNews() {
       const sorted = [...newsData].sort((a, b) => parseNewsDate(b.date) - parseNewsDate(a.date));
-      return `<div class="timeline">${sorted.slice(0, limit).map(renderNewsItem).join("")}</div>`;
+      return `<div class="timeline">${sorted.map(renderNewsItem).join("")}</div>`;
     }
 
     function renderHome() {
-      return `<section class="hero"><div class="container"><div class="hero-content">
-        <div class="eyebrow">Faculty of Mechanical Engineering · Technion</div>
-        <h1>Pioneering the mechanics of <span>interacting surfaces</span>.</h1>
-        <p class="hero-copy">We study the mechanics of interacting surfaces in motion—advancing lubrication, contact science, and marine engineering through modeling and experiments.</p>
-        <div class="hero-actions"><a class="button gold" href="#research">Explore our research <span aria-hidden="true">→</span></a><a class="button outline" href="#people">Meet the team</a></div>
-      </div></div></section>
-      <section class="section"><div class="container">
-        <div class="intro-copy"><div class="eyebrow">About the lab</div><h2>Welcome to the TriboMechanics Lab</h2>
-          <p>The TriboMechanics Lab pioneers advanced research at the dynamic intersection of surface engineering, fluid mechanics, and contact mechanics to solve complex friction, wear, and lubrication challenges.</p>
-          <a class="text-link" href="#research">Explore our research <span aria-hidden="true">→</span></a>
+      const latestNews = newsData[0];
+      return `<section class="hero"><div class="container hero-layout">
+        <div class="hero-content">
+          <div class="eyebrow">Faculty of Mechanical Engineering &middot; Technion</div>
+          <h1>Welcome to the <span>TriboMechanics Lab</span></h1>
+          <p class="hero-copy">At the Faculty of Mechanical Engineering at Technion &ndash; Israel Institute of Technology, we investigate friction, lubrication, wear, and surface engineering. Our work spans the physics of how surfaces meet to practical ways of making industrial machinery more efficient, durable, and reliable.</p>
+          <div class="hero-actions"><a class="button gold" href="#research">Explore Our Research <span aria-hidden="true">&rarr;</span></a><a class="button outline" href="#facilities">Lab Facilities</a></div>
         </div>
+        <aside class="hero-glance"><h2>Lab at a Glance</h2><dl>
+          <dt>Principal Investigators</dt><dd>Assoc. Prof. Morel Groper &amp; Dr. Roman Goltsberg</dd>
+          <dt>Location</dt><dd>Lady Davis Building (Room 473) &amp; Dan Kahn Building, Technion</dd>
+          <dt>Core Focus</dt><dd>Contact Mechanics, Hydrodynamic Lubrication &amp; Cavitation, Laser Surface Texturing (LST), and Custom Tribometry</dd>
+        </dl></aside>
       </div></section>
       <section class="section"><div class="container">
-        <div class="subheading-row"><div><div class="eyebrow">From the lab</div><h2>Latest news</h2></div><a class="text-link" href="#news">All news <span aria-hidden="true">→</span></a></div>${renderNews(2)}
-      </div></section>`;
+        <div class="section-heading"><div class="eyebrow">About the lab</div><h2>Bridging Theory &amp; Experiment</h2>
+          <p>We pair analytical and numerical models with custom test benches. By comparing what the models predict with what we measure, we can understand why components wear and test changes before they reach industrial service.</p>
+        </div>
+        <div class="capability-grid">
+          <article class="capability-card"><h3>Computational &amp; Theoretical Modeling</h3><p>Finite difference solvers for JFO mass-conserving cavitation, finite element analysis in Ansys and Abaqus, and CFD and fluid&ndash;structure interaction simulations in Ansys Fluent.</p></article>
+          <article class="capability-card"><h3>Experimental Tribometry</h3><p>Dedicated test benches and classic tribometers measure friction, wear, film thickness, and dynamic response under realistic loads.</p></article>
+          <article class="capability-card"><h3>Surface Engineering &amp; Metrology</h3><p>Laser surface texturing (LST), 3D optical profilometry, SEM characterization of wear, and microhardness analysis.</p></article>
+        </div>
+      </div></section>
+      ${latestNews ? `<section class="section soft"><div class="container">
+        <div class="subheading-row"><div><div class="eyebrow">From the lab</div><h2>Latest News</h2></div><a class="button gold" href="#news">View All News <span aria-hidden="true">&rarr;</span></a></div>
+        <article class="featured-news">
+          ${latestNews.images?.[0] ? `<div class="featured-news-photo"><img src="${escapeHTML(latestNews.images[0])}" alt="${escapeHTML(latestNews.title)}" loading="lazy" onerror="this.parentElement.hidden=true"></div>` : ""}
+          <div class="featured-news-copy"><div class="news-date">${escapeHTML(latestNews.date)}</div><h3>${escapeHTML(latestNews.title)}</h3><p>${escapeHTML(latestNews.description)}</p></div>
+        </article>
+      </div></section>` : ""}`;
     }
 
     function renderPeople() {
@@ -657,41 +686,58 @@
     }
 
     function renderResearch() {
-      return `<section class="research-banner"><div class="container">
-        <div class="eyebrow">Research</div><h1>Tons of Metal to Microns of Contact</h1>
-        <p>Microscopic contacts can determine the friction, wear, and service life of full-scale machines.</p>
-        <img src="tons_of_metal.jpg" alt="Large machines above a magnified view of two interacting surfaces">
+      return `<div class="research-page"><section class="research-banner"><div class="container">
+        <div class="eyebrow">Research</div><h1>From Tons of Metal to Microns of Contact</h1>
+        <p>A bearing can carry tons, yet its behavior depends on a lubricant film only microns thick and the tiny peaks where surfaces touch. What happens at that scale determines how much energy a machine loses to friction, how reliably it operates, and how long its parts last.</p>
+        <svg viewBox="0 0 460 180" role="img" aria-labelledby="research-diagram-title">
+          <title id="research-diagram-title">A shaft and bearing zoomed in to show two rough surfaces touching at an asperity</title>
+          <g fill="none" stroke="#b6d6e8" stroke-width="2" stroke-linejoin="round">
+            <path d="M24 147H177M39 147v-16h124v16M58 131V95a43 43 0 0 1 86 0v36"/>
+            <circle cx="101" cy="95" r="32"/><circle cx="101" cy="95" r="18"/>
+            <path d="M19 95h64m36 0h64" stroke-dasharray="5 5"/>
+            <circle cx="361" cy="86" r="64"/>
+            <path d="M316 67l15 5 14-7 16 21 16-11 13-9 16 5M316 109l15-11 15 3 15-15 17 18 12-6 16 7"/>
+          </g>
+          <g fill="none" stroke="#ffd966" stroke-width="2">
+            <circle cx="133" cy="95" r="6"/><path d="M145 86l140-43M145 104l140 23" stroke-dasharray="5 5"/>
+            <path d="M197 86h64m-8-7 8 7-8 7"/><circle cx="361" cy="86" r="5"/>
+          </g>
+          <g fill="#e3eef5" font-size="13" font-family="inherit" text-anchor="middle">
+            <text x="101" y="170">Shaft &amp; bearing</text><text x="361" y="170">Asperity contact</text>
+          </g>
+        </svg>
       </div></section>
       <section class="section"><div class="container">
         <div class="section-heading"><h2>Research Methodology</h2></div>
         <div class="methodology-grid">
-          <div><h3>Approach</h3><dl>
-            <dt>Theoretical Research</dt><dd>We use in-house finite difference (FDM) tools for lubrication, finite element modeling (FEM) in Ansys and Abaqus for contact mechanics, and finite volume CFD in Ansys Fluent for multiphase flow, dynamic meshes, and fluid&ndash;structure interaction with six degrees of freedom.</dd>
-            <dt>Empirical Studies</dt><dd>We test theoretical predictions on <a href="#facilities">classic tribometers and dedicated test benches</a> under controlled conditions.</dd>
+          <div><h3>Research Approach</h3><dl>
+            <dt>Theoretical Research</dt><dd>We use the finite element method in Ansys and Abaqus to study contact mechanics, and the finite volume method in Ansys Fluent to model multiphase flow, dynamic meshes, and fluid&ndash;structure interaction with six degrees of freedom. We also develop our own finite difference solvers for lubrication and cavitation.</dd>
+            <dt>Empirical Studies</dt><dd>We design controlled experiments on <a href="#facilities">classic tribometers and custom full-scale test benches</a> to see how well theoretical predictions hold under real operating conditions.</dd>
           </dl></div>
-          <div><h3>Scope</h3><dl>
-            <dt>Basic Research</dt><dd>We investigate the mechanisms that govern friction, wear, lubrication, and contact between surfaces.</dd>
-            <dt>Applied Research</dt><dd>We translate those findings into industrial solutions, including more reliable bearings and mechanical seals.</dd>
+          <div><h3>Research Scope</h3><dl>
+            <dt>Basic Research</dt><dd>We investigate the physics of dry, mixed, and hydrodynamic contacts, including how lubricant films form and how cavitation develops and changes during operation.</dd>
+            <dt>Applied Research</dt><dd>We use these findings to develop more durable mechanical seals, water-lubricated bearings, and other components used in heavy-duty industrial systems.</dd>
           </dl></div>
         </div>
       </div></section>
-      <section class="section soft"><div class="container">
+      <section class="section"><div class="container">
         <div class="section-heading"><h2>Research Focus</h2></div>
         ${renderThemes()}
-      </div></section>`;
+      </div></section></div>`;
     }
 
     function renderFacilities() {
       return `<section class="section soft"><div class="container">
         <div class="section-heading"><div class="eyebrow">Lab equipment</div><h1>Facilities</h1><p>Instrumentation and custom test benches for friction, wear, surface characterization, and water lubrication.</p></div>
-        ${facilitiesData.map(group => `<section class="facility-group"><h2>${escapeHTML(group.title)}</h2>
-          <div class="facility-grid">${group.equipment.map(machine => `<article class="facility-card">
-            ${machine.image ? `<img class="facility-photo" hidden src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.imageAlt || machine.name)}" decoding="async" onload="this.hidden=false">` : ""}
-            <div class="facility-copy"><h3>${escapeHTML(machine.name)}</h3><p>${escapeHTML(machine.summary)}</p>
-              <ul>${machine.capabilities.map(capability => `<li>${escapeHTML(capability)}</li>`).join("")}</ul>
-            </div>
-          </article>`).join("")}</div>
-        </section>`).join("")}
+        <div class="facilities-grid">${facilitiesData.map(machine => `<article class="facility-card">
+          <div class="facility-media">
+            <img class="facility-photo" src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+            <div class="facility-blueprint" hidden aria-hidden="true"><span>${escapeHTML(machine.name)}</span></div>
+          </div>
+          <div class="facility-copy"><h2>${escapeHTML(machine.name)}</h2><p>${escapeHTML(machine.summary)}</p>
+            <ul>${machine.capabilities.map(capability => `<li>${escapeHTML(capability)}</li>`).join("")}</ul>
+          </div>
+        </article>`).join("")}</div>
       </div></section>`;
     }
 
