@@ -103,11 +103,12 @@
     .featured-news-copy h3 { margin-bottom: 10px; }
     .featured-news-copy p { margin: 0; color: var(--muted); }
 
-    .research-focus-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+    .research-focus-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
     .research-focus-item { padding: 26px; border: 1px solid var(--gold); border-top-width: 3px; border-radius: 8px; background: var(--paper); box-shadow: var(--shadow); }
     .card-index { display: inline-flex; width: 38px; height: 38px; align-items: center; justify-content: center; margin-bottom: 19px; border: 1px solid rgba(255,217,102,.9); border-radius: 12px; background: var(--gold-glass); color: #55420f; font-size: .8rem; font-weight: 800; box-shadow: 0 4px 15px rgba(255,217,102,.24); }
     .research-focus-item h3 { margin-bottom: 8px; }
-    .research-focus-item p { max-width: 820px; margin: 0; color: var(--muted); }
+    .research-details { margin: 0; padding-inline-start: 1.15em; color: var(--muted); font-size: 1.1rem; line-height: 1.75; }
+    .research-details li + li { margin-top: 8px; }
     .research-page { background: var(--paper); }
     .research-banner { padding: 48px 0 56px; text-align: center; }
     .research-banner h1 { font-size: 2.4rem; }
@@ -527,10 +528,18 @@
     ];
 
     const researchThemes = [
-      { title: "Contact Mechanics & Wear Mechanisms", text: "We investigate friction, wear, and the degradation of materials and coatings in dry, boundary, mixed, and fully lubricated contacts. We study how load and surface geometry govern how damage develops." },
-      { title: "Hydrodynamic Lubrication & Cavitation Modeling", text: "We use mass-conserving cavitation algorithms and advanced CFD to model flow in bearings and mechanical seals. These models help predict where lubricant films break and reform, and how that changes load support." },
-      { title: "Laser Surface Texturing (LST) & Surface Engineering", text: "We design and fabricate controlled patterns of microscopic features to tailor friction, increase load-carrying capacity, and extend component life. We compare textured and untextured surfaces under equivalent conditions." },
-      { title: "Custom Tribometers & Experimental Diagnostics", text: "We develop specialized rigs that reproduce real-world motion and loading. High-precision, multi-sensor measurements help distinguish changes in friction, film behavior, and dynamic response." }
+      { title: "Contact Mechanics", details: [
+        "Investigating friction and wear across dry, lubricated, and mixed regimes.",
+        "Studying material and surface coating behavior under real contact and loading conditions."
+      ] },
+      { title: "Lubrication", details: [
+        "Advancing simulation realism in bearing and seal flow analysis using advanced CFD tools (Ansys Fluent with multiphase modeling, dynamic mesh, and 6-DOF fluid-structure interaction) alongside self-developed Finite Difference lubrication solvers.",
+        "Enhancing load-carrying capacity and performance in mixed and hydrodynamic regimes through surface texturing."
+      ] },
+      { title: "Experimental Tribology", details: [
+        "Developing advanced tribometers and dedicated full-scale test benches for real-condition empirical studies.",
+        "Advancing laser surface texturing (LST) for tailored friction and wear performance."
+      ] }
     ];
 
     const facilitiesData = [
@@ -593,7 +602,8 @@
       return `<ol class="research-focus-list" role="list">${researchThemes.map((theme, index) => `
         <li class="research-focus-item">
           <span class="card-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
-          <div><h3>${escapeHTML(theme.title)}</h3><p>${escapeHTML(theme.text)}</p></div>
+          <h3>${escapeHTML(theme.title)}</h3>
+          <ul class="research-details">${theme.details.map(detail => `<li>${escapeHTML(detail)}</li>`).join("")}</ul>
         </li>`).join("")}</ol>`;
     }
 
@@ -718,7 +728,11 @@
         <div class="section-heading"><h2>Research Methodology</h2></div>
         <div class="methodology-grid">
           <div><h3>Research Approach</h3><dl>
-            <dt>Theoretical Research</dt><dd>We use the finite element method in Ansys and Abaqus to study contact mechanics, and the finite volume method in Ansys Fluent to model multiphase flow, dynamic meshes, and fluid&ndash;structure interaction with six degrees of freedom. We also develop our own finite difference solvers for lubrication and cavitation.</dd>
+            <dt>Theoretical Research</dt><dd><ul class="research-details">
+              <li><strong>Finite Element Method (FEM):</strong> Ansys and Abaqus for contact mechanics modeling and investigation.</li>
+              <li><strong>Finite Volume Method (FVM):</strong> Ansys Fluent for multiphase modeling, dynamic mesh, and 6-DOF fluid-structure interaction.</li>
+              <li><strong>Finite Difference Method (FDM):</strong> Self-developed numerical tools for lubrication-related studies.</li>
+            </ul></dd>
             <dt>Empirical Studies</dt><dd>We design controlled experiments on <a href="#facilities">classic tribometers and custom full-scale test benches</a> to see how well theoretical predictions hold under real operating conditions.</dd>
           </dl></div>
           <div><h3>Research Scope</h3><dl>
@@ -728,7 +742,7 @@
         </div>
       </div></section>
       <section class="research-focus"><div class="container">
-        <div class="section-heading"><h2>Research Focus</h2></div>
+        <div class="section-heading"><h2>Core Research Focus</h2></div>
         ${renderThemes()}
       </div></section></div>`;
     }
