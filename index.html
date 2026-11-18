@@ -103,25 +103,17 @@
     .featured-news-copy h3 { margin-bottom: 10px; }
     .featured-news-copy p { margin: 0; color: var(--muted); }
 
-    .research-focus-list { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--line); }
-    .research-focus-item { display: grid; grid-template-columns: 46px minmax(0,1fr); align-items: start; gap: 18px; padding: 24px 0; border-top: 1px solid var(--line); }
-    .card-index { display: grid; width: 46px; height: 38px; place-items: center; border-radius: 6px; background: var(--blue); color: var(--gold); font-weight: 800; }
+    .research-focus-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+    .research-focus-item { padding: 26px; border: 1px solid var(--gold); border-top-width: 3px; border-radius: 8px; background: var(--paper); box-shadow: var(--shadow); }
+    .card-index { display: inline-flex; width: 38px; height: 38px; align-items: center; justify-content: center; margin-bottom: 19px; border: 1px solid rgba(255,217,102,.9); border-radius: 12px; background: var(--gold-glass); color: #55420f; font-size: .8rem; font-weight: 800; box-shadow: 0 4px 15px rgba(255,217,102,.24); }
     .research-focus-item h3 { margin-bottom: 8px; }
     .research-focus-item p { max-width: 820px; margin: 0; color: var(--muted); }
     .research-page { background: var(--paper); }
     .research-banner { padding: 48px 0 56px; text-align: center; }
-    .research-showcase { max-width: 1100px; margin-inline: auto; padding: 30px 20px 14px; border-radius: 8px; background: var(--blue-dark); box-shadow: var(--shadow); }
-    .research-showcase .eyebrow { color: var(--gold); }
-    .research-showcase h1 { color: white; font-size: 2.4rem; }
-    .research-showcase svg { display: block; width: min(100%,760px); height: auto; margin: 10px auto 0; }
+    .research-banner h1 { font-size: 2.4rem; }
+    .research-banner p { max-width: 720px; margin: 14px auto 24px; color: var(--muted); }
+    .research-banner svg { display: block; width: min(90%,600px); height: auto; margin: auto; }
     .research-page p, .research-page dd { font-size: 1.1rem; line-height: 1.75; }
-    .research-intro { max-width: 820px; margin: 44px auto 0; }
-    .research-intro.section-heading p { max-width: none; margin-bottom: 0; }
-    .research-impacts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); max-width: 1100px; margin: 32px auto 0; }
-    .research-impact { padding-inline: 20px; }
-    .research-impact + .research-impact { border-left: 1px solid var(--line); }
-    .research-impact h3 { margin-bottom: 8px; }
-    .research-impacts .research-impact p { margin: 0; color: var(--muted); font-size: 1rem; }
     .research-methodology { padding: 64px 0; background: #f4f7fa; }
     .research-focus { padding: 64px 0; }
     .research-page .section-heading h2 { font-size: 2.1rem; letter-spacing: 0; }
@@ -256,11 +248,9 @@
     @media (width < 768px) {
       .capability-grid, .facilities-grid { grid-template-columns: 1fr; }
       .hero-content { padding-block: 38px; }
-      .research-showcase h1 { font-size: 1.85rem; }
+      .research-banner h1 { font-size: 1.85rem; }
       .research-page .section-heading h2 { font-size: 1.85rem; }
-      .methodology-grid, .research-impacts { grid-template-columns: 1fr; }
-      .research-impact { padding: 14px 0; }
-      .research-impact + .research-impact { border-left: 0; border-top: 1px solid var(--line); }
+      .methodology-grid, .research-focus-list { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .container { width: min(var(--content),calc(100% - 34px)); }
@@ -701,18 +691,17 @@
 
     function renderResearch() {
       return `<div class="research-page"><section class="research-banner"><div class="container">
-        <div class="research-showcase">
         <div class="eyebrow">Research</div><h1>From Tons of Metal to Microns of Contact</h1>
-        <svg viewBox="0 0 2048 944" role="img" aria-labelledby="research-diagram-title">
+        <p>Micron-scale surface interactions determine how reliably machines run and how long they last.</p>
+        <svg viewBox="0 75 2048 595" role="img" aria-labelledby="research-diagram-title">
           <title id="research-diagram-title">Tons of metal to microns of contact: a ship and a magnified view of two rough surfaces touching</title>
           <defs>
             <clipPath id="research-artwork-content">
-              <rect width="754" height="944"/>
+              <rect width="754" height="625"/>
               <circle cx="1589" cy="349" r="225"/>
-              <rect x="1250" y="650" width="798" height="294"/>
             </clipPath>
             <filter id="research-artwork-colors" color-interpolation-filters="sRGB">
-              <feColorMatrix in="SourceGraphic" result="blue-artwork" values=".65 0 0 0 .35  0 .65 0 0 .41  0 0 .65 0 .49  0 0 -4.5 0 4.25"/>
+              <feColorMatrix in="SourceGraphic" result="blue-artwork" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 -4.5 0 4.25"/>
               <feColorMatrix in="SourceGraphic" result="contact-mask" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3 0 -3 0 -.3"/>
               <feFlood flood-color="#d9a625"/>
               <feComposite in2="contact-mask" operator="in"/>
@@ -722,20 +711,11 @@
           <image href="tons_of_metal.jpg" width="2048" height="944" filter="url(#research-artwork-colors)" clip-path="url(#research-artwork-content)"/>
           <path d="M1753 513L1852 626" fill="none" stroke="#d9a625" stroke-width="45" stroke-linecap="round"/>
           <circle cx="1589" cy="349" r="233" fill="none" stroke="#d9a625" stroke-width="22"/>
-          <path fill="#b6d6e8" d="M800 464H1149V437L1200 476L1149 515V488H800Z"/>
+          <path fill="#205473" d="M824 352H1173V325L1224 364L1173 403V376H824Z"/>
         </svg>
-        </div>
-        <div class="section-heading research-intro"><h2>Performance Depends on Surfaces</h2>
-          <p>While heavy marine, defense, and industrial machinery is built from tons of metal, its efficiency, reliability, and operational lifespan are governed at contact interfaces only microns thick. At the TriboMechanics Lab, we investigate and engineer these microscopic interactions&mdash;combining multi-scale numerical modeling with custom experimental diagnostics to control friction, lubrication, and wear.</p>
-        </div>
-        <div class="research-impacts">
-          <div class="research-impact"><h3>Friction &amp; Efficiency</h3><p>Reducing parasitic mechanical energy losses across sliding and rotating contacts.</p></div>
-          <div class="research-impact"><h3>Lifespan &amp; Reliability</h3><p>Mitigating wear, scuffing, and surface fatigue under extreme operating loads.</p></div>
-          <div class="research-impact"><h3>Surface &amp; Film Control</h3><p>Engineering deterministic micro-textures and lubricant films for predictable performance.</p></div>
-        </div>
       </div></section>
       <section class="research-methodology"><div class="container">
-        <div class="section-heading"><h2>Research Methodology</h2><p>To bridge macroscopic systems and micron-scale physics, our research framework integrates theoretical modeling with empirical validation.</p></div>
+        <div class="section-heading"><h2>Research Methodology</h2></div>
         <div class="methodology-grid">
           <div><h3>Research Approach</h3><dl>
             <dt>Theoretical Research</dt><dd>We use the finite element method in Ansys and Abaqus to study contact mechanics, and the finite volume method in Ansys Fluent to model multiphase flow, dynamic meshes, and fluid&ndash;structure interaction with six degrees of freedom. We also develop our own finite difference solvers for lubrication and cavitation.</dd>
