@@ -77,18 +77,12 @@
 
     .hero { position: relative; min-height: min(690px, calc(100vh - 82px)); display: flex; align-items: center; overflow: hidden; isolation: isolate; background-color: #222b30; background-image: linear-gradient(90deg, rgba(7,24,34,.94) 0%, rgba(7,24,34,.83) 37%, rgba(7,24,34,.34) 73%, rgba(7,24,34,.12) 100%), url("hero-bg.jpg"); background-position: center, right center; background-size: cover; }
     .hero::after { position: absolute; z-index: -1; right: -120px; bottom: -250px; width: 550px; height: 550px; border: 1px solid rgba(255,217,102,.2); border-radius: 50%; content: ""; }
-    .hero-layout { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,.85fr); align-items: center; gap: 48px; padding-block: 66px; }
-    .hero-content { color: white; }
+    .hero-content { max-width: 700px; padding-block: 66px; color: white; }
     .hero .eyebrow { color: #ffdf7b; }
     .hero h1 { margin-bottom: 22px; color: white; font-size: 4.1rem; font-weight: 800; }
     .hero h1 span { color: var(--gold); }
     .hero-copy { max-width: 635px; margin-bottom: 32px; color: rgba(255,255,255,.9); font-size: 1.15rem; }
     .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-    .hero-glance { padding: 26px; border: 1px solid rgba(255,217,102,.65); border-top: 3px solid var(--gold); border-radius: 8px; background: rgba(0,79,128,.78); backdrop-filter: blur(10px); color: white; }
-    .hero-glance h2 { color: var(--gold); font-size: 1.35rem; }
-    .hero-glance dl { margin-bottom: 0; }
-    .hero-glance dt { margin-top: 10px; font-weight: 800; }
-    .hero-glance dd { margin: 0; color: #f0f5f8; }
     .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border: 1px solid transparent; border-radius: 999px; background: var(--blue); color: white; font-size: .94rem; font-weight: 700; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; cursor: pointer; }
     .button:hover { transform: translateY(-2px); box-shadow: 0 9px 22px rgba(0,79,128,.2); }
     .button.gold { border: 1px solid rgba(255,217,102,.9); background: var(--gold-glass); color: #27333a; backdrop-filter: blur(6px); box-shadow: 0 4px 15px rgba(255,217,102,.4); }
@@ -131,6 +125,8 @@
     .methodology-grid > div, .research-page .research-card { border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 26px; border-radius: 8px; background: white; box-shadow: var(--shadow); }
     .methodology-grid dt { margin-top: 12px; color: var(--ink); font-weight: 800; }
     .methodology-grid dd { margin: 4px 0 0; color: var(--muted); }
+    .facility-group + .facility-group { margin-top: 48px; }
+    .facility-group > h2 { margin-bottom: 20px; font-size: 1.65rem; }
     .facilities-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; }
     .facility-card { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
     .facility-media { height: 240px; background: var(--blue-deep); }
@@ -139,7 +135,7 @@
     .facility-blueprint span { max-width: 360px; padding: 12px 16px; border-block: 1px solid var(--gold); background: var(--blue-deep); font: 800 1.15rem/1.4 "Manrope", sans-serif; overflow-wrap: anywhere; }
     .facility-photo[hidden], .facility-blueprint[hidden] { display: none; }
     .facility-copy { padding: 22px; }
-    .facility-copy h2 { margin-bottom: 8px; font-size: 1.25rem; overflow-wrap: anywhere; }
+    .facility-copy h3 { margin-bottom: 8px; font-size: 1.25rem; overflow-wrap: anywhere; }
     .facility-copy p, .facility-copy ul { color: var(--muted); font-size: .94rem; }
     .facility-copy ul { margin: 0; padding-left: 20px; }
     .facility-copy li + li { margin-top: 5px; }
@@ -247,15 +243,14 @@
     }
     @media (max-width: 900px) {
       .hero { min-height: 590px; background-position: center,65% center; }
-      .hero-layout { gap: 24px; }
       .hero h1 { font-size: 3rem; }
       .people-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .profile-hero { grid-template-columns: minmax(210px,.75fr) 1.25fr; gap: 32px; }
       .profile-photo-wrap { height: 340px; }
     }
     @media (width < 768px) {
-      .hero-layout, .capability-grid, .facilities-grid { grid-template-columns: 1fr; }
-      .hero-layout { padding-block: 38px; }
+      .capability-grid, .facilities-grid { grid-template-columns: 1fr; }
+      .hero-content { padding-block: 38px; }
       .research-banner h1 { font-size: 2.1rem; }
       .research-page .section-heading h2 { font-size: 1.85rem; }
       .methodology-grid, .research-page .research-grid { grid-template-columns: 1fr; }
@@ -542,13 +537,30 @@
     ];
 
     const facilitiesData = [
-      { name: "Bruker UMT TriboLab", image: "umt-tribolab.jpg", summary: "A modular platform for comparing the friction and wear of materials, coatings, and lubricants under controlled conditions.", capabilities: ["Rotary and reciprocating test configurations", "Normal and friction force measurements", "Comparative testing of sliding material pairs"] },
-      { name: "Bruker Contour X-100 & WYKO NT1100 3D Optical Profilometers", image: "wyko-nt1100.jpg", summary: "Non-contact optical profiling reveals the shape of engineered textures and the material lost from worn specimens.", capabilities: ["3D surface height, roughness, and texture measurements", "Interactive 3D topography display on the WYKO NT1100", "Comparison of surface profiles before and after testing"] },
-      { name: "Water-Lubricated Journal Bearing Test Bench", image: "journal-bearing-bench.jpg", summary: "A dedicated rig for studying how a rotating journal and its supporting bearing behave with water as the lubricant.", capabilities: ["Rotating journal with a water-lubrication circuit", "Friction and lubrication-regime studies across operating conditions", "Experimental comparison with bearing and thin-film flow models"] },
-      { name: "Reciprocating Contact Mechanics Tester", image: "reciprocating-tester.jpg", summary: "Controlled tests of loaded contacts under repeated back-and-forth sliding and complementary spherical-contact experiments.", capabilities: ["Linear reciprocating sliding for repeated contact tests", "Friction and wear comparisons across specimen pairs", "Spherical-contact tests under normal load for comparison with contact models"] },
-      { name: "Block-on-Ring & Classic Tribometers Suite", image: "block-on-ring.jpg", summary: "A set of complementary fixtures for comparing sliding friction, wear, and material transfer across contact geometries.", capabilities: ["Block-on-ring and pin-on-disk tests with rotating counterparts", "One-pass sliding for a single traverse over a specimen", "Fretting wear testing with small-amplitude oscillation", "Roller-block adhesive wear and material transfer testing"] },
-      { name: "FEI ESEM Quanta 200 Scanning Electron Microscope & Polaron Emitech SC7640 Sputter Coater", image: "esem-quanta.jpg", summary: "Specimen preparation and electron microscopy for examining how surfaces change after tribological testing.", capabilities: ["Environmental SEM imaging of wear tracks and surface morphology", "Conductive sputter coatings to reduce charging on insulating specimens"] },
-      { name: "Surface Texturing & Fluid Characterization Suite", image: "laser-texturing.jpg", summary: "Tools for preparing textured specimens and measuring the surface and lubricant properties that influence contact behavior.", capabilities: ["Fiber laser marking and localized surface patterning", "Microhardness testers for localized indentation measurements", "Mechanical profilometer for stylus-based line profiles", "Viscometers for measuring lubricant viscosity"] }
+      { title: "Classic Tribometers", equipment: [
+        { name: "One-Pass Sliding Tribometer", image: "one-pass-tribometer.jpg", summary: "Evaluates single-pass sliding friction and the onset of surface damage.", capabilities: ["Single traverse across a specimen under controlled normal load", "Comparison of friction and initial damage across material pairs"] },
+        { name: "Pin-on-Disk Tribometer", image: "pin-on-disk.jpg", summary: "Measures continuous sliding friction and wear for dry and lubricated material pairs.", capabilities: ["Loaded pin against a rotating disk", "Comparison of friction coefficients and wear rates"] },
+        { name: "Fretting Wear Tester", image: "fretting-tester.jpg", summary: "Investigates damage caused by repeated micro-slip in clamped contacts.", capabilities: ["Small-amplitude oscillatory contact", "Assessment of surface fatigue and fretting corrosion"] },
+        { name: "Adhesive Wear Tester (Roller-Block Configuration)", image: "roller-block-tester.jpg", summary: "Characterizes adhesive wear and material transfer under rolling-sliding contact.", capabilities: ["Loaded block against a rotating roller", "Comparison of adhesive wear resistance and scuffing thresholds"] }
+      ] },
+      { title: "Special Tribometers & Custom Test Benches", equipment: [
+        { name: "Water-Lubricated Journal Bearing Test Bench", image: "journal-bearing-bench.jpg", summary: "A full-scale experimental rig for studying hydrodynamic performance in water-lubricated bearings.", capabilities: ["Rotating journal with a water-lubrication circuit", "Tests of film pressure, load capacity, and operating stability"] },
+        { name: "Reciprocating Contact Mechanics Tester", image: "reciprocating-tester.jpg", summary: "Studies transient contact behavior under repeated back-and-forth sliding.", capabilities: ["Thin-plate flexure suspension for precision contact measurements", "Transient friction studies in boundary and mixed lubrication regimes"] },
+        { name: "Block-on-Ring Test Bench", image: "block-on-ring.jpg", summary: "A dedicated rotary contact tester for studying wear, coatings, and lubricant film breakdown.", capabilities: ["Stationary block against a rotating ring", "Comparison of conforming and line-contact wear"] }
+      ] },
+      { title: "Metrology & Microscopy", equipment: [
+        { name: "WYKO NT1100 3D Optical Profilometer", image: "wyko-nt1100.jpg", summary: "Non-contact white-light interferometry with interactive 3D surface topography.", capabilities: ["Fine-scale roughness measurements with sub-nanometer height sensitivity under suitable conditions", "Wear-scar volume estimation from measured topography"] },
+        { name: "FEI ESEM Quanta 200 Scanning Electron Microscope (SEM)", image: "esem-quanta.jpg", summary: "High-resolution environmental electron microscopy for examining wear mechanisms and surface morphology.", capabilities: ["Microscale imaging of worn surfaces and fracture features", "Analysis of wear tracks and surface damage"] },
+        { name: "Polaron Emitech SC7640 Sputter Coater", image: "sputter-coater.jpg", summary: "Applies thin, conductive coatings to non-conductive specimens before SEM imaging.", capabilities: ["Conductive coating by sputter deposition", "Reduces charging on polymer and ceramic specimens"] },
+        { name: "Mechanical Stylus Profilometer", image: "mechanical-profilometer.jpg", summary: "A contact-based instrument for tracing linear surface profiles.", capabilities: ["2D roughness parameter measurements", "Cross-sections of wear tracks and deep surface features"] },
+        { name: "Micro-Hardness Testers", image: "micro-hardness.jpg", summary: "Precision indentation systems for characterizing near-surface mechanical properties.", capabilities: ["Localized hardness measurements across specimens and coatings", "Comparison of work hardening and surface treatments"] }
+      ] },
+      { title: "Advanced Testing, Laser Texturing & Fluid Analysis", equipment: [
+        { name: "Bruker UMT TriboLab", image: "umt-tribolab.jpg", summary: "A modular multi-axis mechanical and tribological testing platform.", capabilities: ["Rotary, reciprocating, and block-on-ring test configurations", "High-resolution multi-axis force sensing"] },
+        { name: "Bruker Contour X-100 Optical Profilometer", image: "contour-x100.jpg", summary: "A 3D optical metrology system for rapid, high-precision characterization of textured and worn surfaces.", capabilities: ["Non-contact surface-height mapping and roughness analysis", "Comparison of texture geometry and wear before and after testing"] },
+        { name: "Fiber Laser Marking & Surface Texturing System", image: "fiber-laser.jpg", summary: "Uses localized laser ablation to create repeatable patterns on specimen surfaces.", capabilities: ["Fabrication of micro-dimples, grooves, and other tailored patterns", "Preparation of laser surface texturing (LST) specimens for tribological tests"] },
+        { name: "Rotational Viscometer & Fluid Characterization Suite", image: "viscometer.jpg", summary: "Measures lubricant viscosity and how it changes with test conditions.", capabilities: ["Rotational measurements of dynamic viscosity", "Comparison of rheological behavior across shear rates and temperatures"] }
+      ] }
     ];
 
     const app = document.getElementById("app");
@@ -636,18 +648,13 @@
 
     function renderHome() {
       const latestNews = newsData[0];
-      return `<section class="hero"><div class="container hero-layout">
+      return `<section class="hero"><div class="container">
         <div class="hero-content">
           <div class="eyebrow">Faculty of Mechanical Engineering &middot; Technion</div>
           <h1>Welcome to the <span>TriboMechanics Lab</span></h1>
           <p class="hero-copy">At the Faculty of Mechanical Engineering at Technion &ndash; Israel Institute of Technology, we investigate friction, lubrication, wear, and surface engineering. Our work spans the physics of how surfaces meet to practical ways of making industrial machinery more efficient, durable, and reliable.</p>
           <div class="hero-actions"><a class="button gold" href="#research">Explore Our Research <span aria-hidden="true">&rarr;</span></a><a class="button outline" href="#facilities">Lab Facilities</a></div>
         </div>
-        <aside class="hero-glance"><h2>Lab at a Glance</h2><dl>
-          <dt>Principal Investigators</dt><dd>Assoc. Prof. Morel Groper &amp; Dr. Roman Goltsberg</dd>
-          <dt>Location</dt><dd>Lady Davis Building (Room 473) &amp; Dan Kahn Building, Technion</dd>
-          <dt>Core Focus</dt><dd>Contact Mechanics, Hydrodynamic Lubrication &amp; Cavitation, Laser Surface Texturing (LST), and Custom Tribometry</dd>
-        </dl></aside>
       </div></section>
       <section class="section"><div class="container">
         <div class="section-heading"><div class="eyebrow">About the lab</div><h2>Bridging Theory &amp; Experiment</h2>
@@ -688,22 +695,28 @@
     function renderResearch() {
       return `<div class="research-page"><section class="research-banner"><div class="container">
         <div class="eyebrow">Research</div><h1>From Tons of Metal to Microns of Contact</h1>
-        <p>A bearing can carry tons, yet its behavior depends on a lubricant film only microns thick and the tiny peaks where surfaces touch. What happens at that scale determines how much energy a machine loses to friction, how reliably it operates, and how long its parts last.</p>
-        <svg viewBox="0 0 460 180" role="img" aria-labelledby="research-diagram-title">
-          <title id="research-diagram-title">A shaft and bearing zoomed in to show two rough surfaces touching at an asperity</title>
-          <g fill="none" stroke="#b6d6e8" stroke-width="2" stroke-linejoin="round">
-            <path d="M24 147H177M39 147v-16h124v16M58 131V95a43 43 0 0 1 86 0v36"/>
-            <circle cx="101" cy="95" r="32"/><circle cx="101" cy="95" r="18"/>
-            <path d="M19 95h64m36 0h64" stroke-dasharray="5 5"/>
-            <circle cx="361" cy="86" r="64"/>
-            <path d="M316 67l15 5 14-7 16 21 16-11 13-9 16 5M316 109l15-11 15 3 15-15 17 18 12-6 16 7"/>
+        <p>Micron-scale surface interactions determine how reliably machines run and how long they last.</p>
+        <svg viewBox="0 0 460 170" role="img" aria-labelledby="research-diagram-title">
+          <title id="research-diagram-title">A naval ship and armored tank point toward a magnified view of meshing gear teeth</title>
+          <path fill="#fff" d="M10 91h27V78h16V65h17v-9h19v9h12v13h19l9 13h20l-17 24H30z"/>
+          <path fill="none" stroke="#ffd966" stroke-width="3" stroke-linecap="round" d="M81 57V38m-9 10h18M36 124h92"/>
+          <g fill="#fff">
+            <path d="M167 91h12l8-13h12l7-10h29l8 6h32v5h-31l-4 9 14 3 6 8H161z"/>
+            <rect x="160" y="99" width="99" height="21" rx="10.5"/>
           </g>
-          <g fill="none" stroke="#ffd966" stroke-width="2">
-            <circle cx="133" cy="95" r="6"/><path d="M145 86l140-43M145 104l140 23" stroke-dasharray="5 5"/>
-            <path d="M197 86h64m-8-7 8 7-8 7"/><circle cx="361" cy="86" r="5"/>
+          <g fill="#ffd966" stroke="#003354" stroke-width="2">
+            <circle cx="175" cy="109.5" r="5"/><circle cx="192" cy="109.5" r="5"/><circle cx="209" cy="109.5" r="5"/><circle cx="226" cy="109.5" r="5"/><circle cx="243" cy="109.5" r="5"/>
           </g>
-          <g fill="#e3eef5" font-size="13" font-family="inherit" text-anchor="middle">
-            <text x="101" y="170">Shaft &amp; bearing</text><text x="361" y="170">Asperity contact</text>
+          <path fill="none" stroke="#ffd966" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M278 85h38m-9-8 9 8-9 8"/>
+          <defs><clipPath id="research-lens"><circle cx="382" cy="79" r="51"/></clipPath></defs>
+          <g clip-path="url(#research-lens)">
+            <path fill="#fff" d="M322 20h117v52h-15l-5 15h-11l-5-15h-14l-5 15h-11l-5-15h-14l-5 15h-11l-5-15h-11z"/>
+            <path fill="#ffd966" d="M322 143V96h24l5-19h11l5 19h14l5-19h11l5 19h14l5-19h11l5 19h2v47z"/>
+          </g>
+          <path stroke="#ffd966" stroke-width="10" stroke-linecap="round" d="m419 116 25 25"/>
+          <circle cx="382" cy="79" r="53" fill="none" stroke="#ffd966" stroke-width="4"/>
+          <g fill="#e3eef5" font-size="15" font-family="inherit" text-anchor="middle">
+            <text x="136" y="163">Tons of Metal</text><text x="382" y="163">Microns of Contact</text>
           </g>
         </svg>
       </div></section>
@@ -729,15 +742,18 @@
     function renderFacilities() {
       return `<section class="section soft"><div class="container">
         <div class="section-heading"><div class="eyebrow">Lab equipment</div><h1>Facilities</h1><p>Instrumentation and custom test benches for friction, wear, surface characterization, and water lubrication.</p></div>
-        <div class="facilities-grid">${facilitiesData.map(machine => `<article class="facility-card">
-          <div class="facility-media">
-            <img class="facility-photo" src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-            <div class="facility-blueprint" hidden aria-hidden="true"><span>${escapeHTML(machine.name)}</span></div>
-          </div>
-          <div class="facility-copy"><h2>${escapeHTML(machine.name)}</h2><p>${escapeHTML(machine.summary)}</p>
-            <ul>${machine.capabilities.map(capability => `<li>${escapeHTML(capability)}</li>`).join("")}</ul>
-          </div>
-        </article>`).join("")}</div>
+        ${facilitiesData.map((group, index) => `<section class="facility-group" aria-labelledby="facility-group-${index}">
+          <h2 id="facility-group-${index}">${escapeHTML(group.title)}</h2>
+          <div class="facilities-grid">${group.equipment.map(machine => `<article class="facility-card">
+            <div class="facility-media">
+              <img class="facility-photo" src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+              <div class="facility-blueprint" hidden aria-hidden="true"><span>${escapeHTML(machine.name)}</span></div>
+            </div>
+            <div class="facility-copy"><h3>${escapeHTML(machine.name)}</h3><p>${escapeHTML(machine.summary)}</p>
+              <ul>${machine.capabilities.map(capability => `<li>${escapeHTML(capability)}</li>`).join("")}</ul>
+            </div>
+          </article>`).join("")}</div>
+        </section>`).join("")}
       </div></section>`;
     }
 
