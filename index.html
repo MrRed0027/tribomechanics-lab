@@ -111,12 +111,11 @@
     .research-card h3 { margin-bottom: 12px; font-size: 1.23rem; }
     .research-card p { margin: 0; color: var(--muted); font-size: .96rem; }
     .research-page { background: #f4f7fa; }
-    .research-banner { padding: 56px 0 42px; border-bottom: 3px solid var(--gold); background: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(135deg,#003354 0%,#004f80 100%); background-size: 24px 24px, 24px 24px, auto; text-align: center; }
-    .research-banner .eyebrow { color: var(--gold); }
-    .research-banner h1 { margin-bottom: 14px; color: white; font-size: 3rem; }
+    .research-banner { padding: 56px 0 42px; text-align: center; }
+    .research-banner h1 { margin-bottom: 14px; font-size: 3rem; }
     .research-page p, .research-page dd { font-size: 1.1rem; line-height: 1.75; }
-    .research-banner p { margin: 0 auto 20px; max-width: 720px; color: #e3eef5; }
-    .research-banner svg { display: block; width: min(100%,460px); height: auto; margin: auto; }
+    .research-banner p { margin: 0 auto 20px; max-width: 720px; color: var(--muted); }
+    .research-banner svg { display: block; width: min(90%,600px); height: auto; margin: auto; }
     .research-page .section { padding: 54px 0; }
     .research-page .section + .section { padding-top: 0; }
     .research-page .section-heading h2 { font-size: 2.1rem; letter-spacing: 0; }
@@ -696,28 +695,26 @@
       return `<div class="research-page"><section class="research-banner"><div class="container">
         <div class="eyebrow">Research</div><h1>From Tons of Metal to Microns of Contact</h1>
         <p>Micron-scale surface interactions determine how reliably machines run and how long they last.</p>
-        <svg viewBox="0 0 460 170" role="img" aria-labelledby="research-diagram-title">
-          <title id="research-diagram-title">A naval ship and armored tank point toward a magnified view of meshing gear teeth</title>
-          <path fill="#fff" d="M10 91h27V78h16V65h17v-9h19v9h12v13h19l9 13h20l-17 24H30z"/>
-          <path fill="none" stroke="#ffd966" stroke-width="3" stroke-linecap="round" d="M81 57V38m-9 10h18M36 124h92"/>
-          <g fill="#fff">
-            <path d="M167 91h12l8-13h12l7-10h29l8 6h32v5h-31l-4 9 14 3 6 8H161z"/>
-            <rect x="160" y="99" width="99" height="21" rx="10.5"/>
-          </g>
-          <g fill="#ffd966" stroke="#003354" stroke-width="2">
-            <circle cx="175" cy="109.5" r="5"/><circle cx="192" cy="109.5" r="5"/><circle cx="209" cy="109.5" r="5"/><circle cx="226" cy="109.5" r="5"/><circle cx="243" cy="109.5" r="5"/>
-          </g>
-          <path fill="none" stroke="#ffd966" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M278 85h38m-9-8 9 8-9 8"/>
-          <defs><clipPath id="research-lens"><circle cx="382" cy="79" r="51"/></clipPath></defs>
-          <g clip-path="url(#research-lens)">
-            <path fill="#fff" d="M322 20h117v52h-15l-5 15h-11l-5-15h-14l-5 15h-11l-5-15h-14l-5 15h-11l-5-15h-11z"/>
-            <path fill="#ffd966" d="M322 143V96h24l5-19h11l5 19h14l5-19h11l5 19h14l5-19h11l5 19h2v47z"/>
-          </g>
-          <path stroke="#ffd966" stroke-width="10" stroke-linecap="round" d="m419 116 25 25"/>
-          <circle cx="382" cy="79" r="53" fill="none" stroke="#ffd966" stroke-width="4"/>
-          <g fill="#e3eef5" font-size="15" font-family="inherit" text-anchor="middle">
-            <text x="136" y="163">Tons of Metal</text><text x="382" y="163">Microns of Contact</text>
-          </g>
+        <svg viewBox="0 0 2048 944" role="img" aria-labelledby="research-diagram-title">
+          <title id="research-diagram-title">Tons of metal to microns of contact: a ship and a magnified view of two rough surfaces touching</title>
+          <defs>
+            <clipPath id="research-artwork-content">
+              <rect width="754" height="944"/>
+              <circle cx="1589" cy="349" r="225"/>
+              <rect x="1250" y="650" width="798" height="294"/>
+            </clipPath>
+            <filter id="research-artwork-colors" color-interpolation-filters="sRGB">
+              <feColorMatrix in="SourceGraphic" result="blue-artwork" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 -4.5 0 4.25"/>
+              <feColorMatrix in="SourceGraphic" result="contact-mask" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3 0 -3 0 -.3"/>
+              <feFlood flood-color="#d9a625"/>
+              <feComposite in2="contact-mask" operator="in"/>
+              <feComposite in2="blue-artwork" operator="over"/>
+            </filter>
+          </defs>
+          <image href="tons_of_metal.jpg" width="2048" height="944" filter="url(#research-artwork-colors)" clip-path="url(#research-artwork-content)"/>
+          <path d="M1753 513L1852 626" fill="none" stroke="#d9a625" stroke-width="45" stroke-linecap="round"/>
+          <circle cx="1589" cy="349" r="233" fill="none" stroke="#d9a625" stroke-width="22"/>
+          <path fill="#205473" d="M800 464H1149V437L1200 476L1149 515V488H800Z"/>
         </svg>
       </div></section>
       <section class="section"><div class="container">
