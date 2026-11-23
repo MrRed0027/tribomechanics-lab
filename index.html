@@ -762,7 +762,7 @@
           <h2 id="facility-group-${index}">${escapeHTML(group.title)}</h2>
           <div class="facilities-grid">${group.equipment.map(machine => `<article class="facility-card"><a class="facility-card-link" href="#facilities/${encodeURIComponent(machine.id)}">
             <div class="facility-card-img-wrap">
-              <img src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" loading="lazy" decoding="async">
+              <img src="${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" loading="lazy" decoding="async">
             </div>
             <div class="facility-copy"><h3>${escapeHTML(machine.name)}</h3><p>${escapeHTML(machine.shortSummary)}</p>
               <span class="text-link">View Details <span aria-hidden="true">&rarr;</span></span>
@@ -778,7 +778,7 @@
         <div class="profile-top"><a class="back-link" href="#facilities"><span aria-hidden="true">&larr;</span> Back to Facilities</a></div>
         <div class="profile-hero">
           <div class="facility-detail-media">
-            <img class="facility-photo" src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}">
+            <img class="facility-photo" src="${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}">
           </div>
           <div class="profile-details"><div class="eyebrow">${escapeHTML(category)}</div><h1>${escapeHTML(machine.name)}</h1>
             <h2>Overview</h2><p>${escapeHTML(machine.description)}</p>
