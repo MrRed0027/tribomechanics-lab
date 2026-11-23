@@ -127,6 +127,17 @@
     .facility-group > h2 { margin-bottom: 20px; font-size: 1.65rem; }
     .facilities-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; }
     .facility-card { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+    .facility-card-link { display: block; height: 100%; color: inherit; text-decoration: none; }
+    .facility-card-link:hover h3, .facility-card-link:focus-visible h3 { color: #0876ae; }
+    .facility-detail-media { height: min(460px, 65vw); min-height: 260px; overflow: hidden; border-radius: 8px; background: var(--blue-deep); }
+    .facility-detail-media .facility-photo { object-fit: contain; }
+    .facility-detail h1 { overflow-wrap: anywhere; }
+    .facility-detail h2 { margin: 20px 0 8px; font-size: 1.25rem; }
+    .facility-detail p { color: var(--muted); }
+    .facility-specs { max-width: 830px; }
+    .facility-specs h2 { margin-bottom: 20px; }
+    .facility-specs ul { padding-left: 1.4em; color: var(--muted); }
+    .facility-specs li { margin-bottom: 10px; }
     .facility-media { height: 240px; background: var(--blue-deep); }
     .facility-photo { width: 100%; height: 100%; object-fit: cover; }
     .facility-blueprint { display: grid; height: 100%; place-items: center; padding: 26px; background-image: linear-gradient(rgba(185,221,242,.16) 1px, transparent 1px), linear-gradient(90deg,rgba(185,221,242,.16) 1px, transparent 1px); background-size: 24px 24px; color: white; text-align: center; }
@@ -544,28 +555,28 @@
 
     const facilitiesData = [
       { title: "Classic Tribometers", equipment: [
-        { name: "One-Pass Sliding Tribometer", image: "one-pass-tribometer.jpg", summary: "Evaluates single-pass sliding friction and the onset of surface damage.", capabilities: ["Single traverse across a specimen under controlled normal load", "Comparison of friction and initial damage across material pairs"] },
-        { name: "Pin-on-Disk Tribometer", image: "pin-on-disk.jpg", summary: "Measures continuous sliding friction and wear for dry and lubricated material pairs.", capabilities: ["Loaded pin against a rotating disk", "Comparison of friction coefficients and wear rates"] },
-        { name: "Fretting Wear Tester", image: "fretting-tester.jpg", summary: "Investigates damage caused by repeated micro-slip in clamped contacts.", capabilities: ["Small-amplitude oscillatory contact", "Assessment of surface fatigue and fretting corrosion"] },
-        { name: "Adhesive Wear Tester (Roller-Block Configuration)", image: "roller-block-tester.jpg", summary: "Characterizes adhesive wear and material transfer under rolling-sliding contact.", capabilities: ["Loaded block against a rotating roller", "Comparison of adhesive wear resistance and scuffing thresholds"] }
+        { id: "one-pass-tribometer", name: "One-Pass-Slide Tribometer", image: "one-pass-tribometer.jpg", shortSummary: "Motorized linear-stage tribometer measuring single-pass and reciprocal sliding friction in dry or temperature-regulated submerged environments.", description: "The One-Pass tribometer is designed to measure the friction and wear characteristics of materials during a single, continuous linear motion, simulating real-world contacts such as those in manufacturing or sliding interfaces. This custom-built system is based on a motorized stage capable of performing multiple linear passes with precise control over displacement, velocity, and acceleration. A stationary disk or ball specimen is pressed against a moving strip sample while a load cell records the frictional force. Unlike conventional setups, this instrument also enables reciprocal, controlled motion in both dry and submerged environments, with the option to monitor and regulate the temperature of the testing fluid in wet conditions.", officialUrl: "", specs: ["Actuation: Motorized linear stage with programmable displacement, velocity, and acceleration", "Motion Modes: Single continuous pass and reciprocal linear sliding", "Specimen Configuration: Stationary disk or ball against a moving strip sample", "Instrumentation & Environment: Friction force load cell; dry or submerged testing with fluid temperature monitoring and regulation"] },
+        { id: "pin-on-disk", name: "Pin-on-Disk Tribometer", image: "pin-on-disk.jpg", shortSummary: "Custom-built sliding friction and wear tester featuring radial pin translation for constant-velocity testing across dry, wet, and lubricated discs.", description: "The Pin-on-Disc tribometer is a versatile apparatus used to study friction and wear between two materials in sliding contact. In this setup, a stationary pin is pressed against a rotating disc under controlled load and speed, while a load cell measures the frictional force and an infrared thermometer monitors contact temperature. Unlike most conventional configurations, this custom-built instrument allows radial translation of the pin, enabling testing across the full disc surface while maintaining constant relative velocity. It also supports operation in wet or lubricated environments, providing a more comprehensive assessment of material performance under realistic service conditions.", officialUrl: "", specs: ["Motion Control: Radial pin translation across full disc surface with constant relative velocity", "Instrumentation: Frictional force load cell, non-contact infrared contact thermometer", "Operating Environments: Dry, wet, and lubricated conditions"] },
+        { id: "fretting-tester", name: "Fretting Wear Tester", image: "fretting-tester.jpg", shortSummary: "Investigates damage caused by repeated micro-slip in clamped contacts.", description: "Investigates damage caused by repeated micro-slip in clamped contacts.", capabilities: ["Small-amplitude oscillatory contact", "Assessment of surface fatigue and fretting corrosion"], officialUrl: "", specs: [] },
+        { id: "roller-block-tester", name: "Adhesive Wear Tester (Roller-Block Configuration)", image: "roller-block-tester.jpg", shortSummary: "Characterizes adhesive wear and material transfer under rolling-sliding contact.", description: "Characterizes adhesive wear and material transfer under rolling-sliding contact.", capabilities: ["Loaded block against a rotating roller", "Comparison of adhesive wear resistance and scuffing thresholds"], officialUrl: "", specs: [] }
       ] },
       { title: "Special Tribometers & Custom Test Benches", equipment: [
-        { name: "Water-Lubricated Journal Bearing Test Bench", image: "journal-bearing-bench.jpg", summary: "A full-scale experimental rig for studying hydrodynamic performance in water-lubricated bearings.", capabilities: ["Rotating journal with a water-lubrication circuit", "Tests of film pressure, load capacity, and operating stability"] },
-        { name: "Reciprocating Contact Mechanics Tester", image: "reciprocating-tester.jpg", summary: "Studies transient contact behavior under repeated back-and-forth sliding.", capabilities: ["Thin-plate flexure suspension for precision contact measurements", "Transient friction studies in boundary and mixed lubrication regimes"] },
-        { name: "Block-on-Ring Test Bench", image: "block-on-ring.jpg", summary: "A dedicated rotary contact tester for studying wear, coatings, and lubricant film breakdown.", capabilities: ["Stationary block against a rotating ring", "Comparison of conforming and line-contact wear"] }
+        { id: "journal-bearing-bench", name: "Water-Lubricated Bearings Test Bench", image: "journal-bearing-bench.jpg", shortSummary: "Full-scale marine propulsion test rig evaluating submerged polymer radial bearings under controlled speed, load, and hydrodynamic film monitoring.", description: "This custom-built test bench is designed to evaluate the performance of water-lubricated bearings used to support the propulsion shafts of marine vessels, replicating real operational conditions as closely as possible. The setup allows a polymer radial bearing to operate while fully submerged in water, under controlled rotational speed and applied load. During testing, key parameters such as journal orbit, frictional torque, and hydrodynamic water pressure within the thin film are continuously monitored. This system enables detailed assessment of bearing behaviour for both surface ships and underwater vehicles, supporting advancements in marine propulsion technology.", officialUrl: "", specs: ["Bearing Type: Fully submerged polymer radial journal bearing", "Control Parameters: Controlled shaft rotational speed and applied radial load", "Real-Time Diagnostics: Journal orbit tracking, frictional torque, and thin-film hydrodynamic water pressure"] },
+        { id: "reciprocating-tester", name: "Reciprocating Contact Mechanics Tester", image: "reciprocating-tester.jpg", shortSummary: "Studies transient contact behavior under repeated back-and-forth sliding.", description: "Studies transient contact behavior under repeated back-and-forth sliding.", capabilities: ["Thin-plate flexure suspension for precision contact measurements", "Transient friction studies in boundary and mixed lubrication regimes"], officialUrl: "", specs: [] },
+        { id: "block-on-ring", name: "Block-on-Ring Tribometer", image: "block-on-ring.jpg", shortSummary: "Custom-built rotary contact apparatus for evaluating sliding wear resistance, friction force, and thermal behavior under dry and lubricated conditions.", description: "The Block-on-Ring tribometer is a custom-built apparatus designed to evaluate the sliding wear resistance of materials under controlled conditions. During testing, a stationary block is pressed against a rotating ring with loads up to 90 N, enabling a wide range of contact pressures (0.1–4.3 MPa) and sliding velocities (0.1–3.3 m/s). The system measures friction force using a high-precision load cell and wear rate through a position sensor that tracks the block’s vertical displacement. Temperature variations are also monitored throughout the test, allowing comprehensive assessment of material performance in both dry and lubricated contacts.", officialUrl: "", specs: ["Applied Load: Up to 90 N", "Contact Pressure Range: 0.1–4.3 MPa", "Sliding Velocity Range: 0.1–3.3 m/s", "Instrumentation: High-precision friction load cell, vertical displacement wear sensor, continuous temperature monitoring", "Operating Environments: Dry and lubricated contacts"] }
       ] },
       { title: "Metrology & Microscopy", equipment: [
-        { name: "WYKO NT1100 3D Optical Profilometer", image: "wyko-nt1100.jpg", summary: "Non-contact white-light interferometry with interactive 3D surface topography.", capabilities: ["Fine-scale roughness measurements with sub-nanometer height sensitivity under suitable conditions", "Wear-scar volume estimation from measured topography"] },
-        { name: "FEI ESEM Quanta 200 Scanning Electron Microscope (SEM)", image: "esem-quanta.jpg", summary: "High-resolution environmental electron microscopy for examining wear mechanisms and surface morphology.", capabilities: ["Microscale imaging of worn surfaces and fracture features", "Analysis of wear tracks and surface damage"] },
-        { name: "Polaron Emitech SC7640 Sputter Coater", image: "sputter-coater.jpg", summary: "Applies thin, conductive coatings to non-conductive specimens before SEM imaging.", capabilities: ["Conductive coating by sputter deposition", "Reduces charging on polymer and ceramic specimens"] },
-        { name: "Mechanical Stylus Profilometer", image: "mechanical-profilometer.jpg", summary: "A contact-based instrument for tracing linear surface profiles.", capabilities: ["2D roughness parameter measurements", "Cross-sections of wear tracks and deep surface features"] },
-        { name: "Micro-Hardness Testers", image: "micro-hardness.jpg", summary: "Precision indentation systems for characterizing near-surface mechanical properties.", capabilities: ["Localized hardness measurements across specimens and coatings", "Comparison of work hardening and surface treatments"] }
+        { id: "wyko-nt1100", name: "WYKO NT1100 3D Optical Profilometer", image: "wyko-nt1100.jpg", shortSummary: "Non-contact white-light interferometry with interactive 3D surface topography.", description: "Non-contact white-light interferometry with interactive 3D surface topography.", capabilities: ["Fine-scale roughness measurements with sub-nanometer height sensitivity under suitable conditions", "Wear-scar volume estimation from measured topography"], officialUrl: "", specs: [] },
+        { id: "esem-quanta", name: "FEI ESEM Quanta 200 Scanning Electron Microscope (SEM)", image: "esem-quanta.jpg", shortSummary: "High-resolution environmental electron microscopy for examining wear mechanisms and surface morphology.", description: "High-resolution environmental electron microscopy for examining wear mechanisms and surface morphology.", capabilities: ["Microscale imaging of worn surfaces and fracture features", "Analysis of wear tracks and surface damage"], officialUrl: "", specs: [] },
+        { id: "sputter-coater", name: "Polaron Emitech SC7640 Sputter Coater", image: "sputter-coater.jpg", shortSummary: "Applies thin, conductive coatings to non-conductive specimens before SEM imaging.", description: "Applies thin, conductive coatings to non-conductive specimens before SEM imaging.", capabilities: ["Conductive coating by sputter deposition", "Reduces charging on polymer and ceramic specimens"], officialUrl: "", specs: [] },
+        { id: "mechanical-profilometer", name: "Mechanical Stylus Profilometer", image: "mechanical-profilometer.jpg", shortSummary: "A contact-based instrument for tracing linear surface profiles.", description: "A contact-based instrument for tracing linear surface profiles.", capabilities: ["2D roughness parameter measurements", "Cross-sections of wear tracks and deep surface features"], officialUrl: "", specs: [] },
+        { id: "micro-hardness", name: "Hardness Indenter – Mitutoyo MVK-H1", image: "micro-hardness.jpg", shortSummary: "Precision microhardness tester supporting Vickers and Knoop indentation methods for evaluating thin coatings, microstructures, and small components.", description: "The Mitutoyo MVK-H1 is a precision microhardness tester used to determine the hardness of materials by pressing a standardized indenter into the surface under controlled load conditions. It supports both Vickers and Knoop testing methods, enabling accurate evaluation of thin coatings, microstructures, and small components. By measuring the geometry of the resulting indentation, the instrument provides precise hardness values, making it ideal for detailed surface characterization in research and quality control applications.", officialUrl: "", specs: ["Supported Test Methods: Vickers and Knoop microhardness indentation", "Primary Applications: Thin surface coatings, metallurgical microstructures, and small precision components"] },
+        { id: "contour-x100", name: "Optical Profilometer – Bruker ContourX-100", image: "contour-x100.jpg", shortSummary: "Non-contact 3D interferometric optical profilometer delivering sub-0.01 nm vertical resolution for surface roughness, texture, and step-height metrology.", description: "The Bruker ContourX-100 is a non-contact optical profilometer that employs advanced interferometric techniques to capture high-resolution, three-dimensional surface profiles. Unlike traditional stylus-based instruments, it performs measurements without touching the sample, making it ideal for delicate or soft materials. The system provides precise characterization of surface roughness, texture, and step height, achieving a vertical resolution better than 0.01 nm. This allows for accurate and repeatable analysis of surface topography in both research and industrial applications.", officialUrl: "https://www.bruker.com/en/products-and-solutions/test-and-measurement/3d-optical-profilers/contourx-100.html", specs: ["Measurement Technique: Non-contact White Light Interferometry (WLI)", "Vertical Resolution: < 0.01 nm", "Capabilities: 3D surface topography, roughness parameters, surface texture, and step-height profiling"] }
       ] },
       { title: "Advanced Testing, Laser Texturing & Fluid Analysis", equipment: [
-        { name: "Bruker UMT TriboLab", image: "umt-tribolab.jpg", summary: "A modular multi-axis mechanical and tribological testing platform.", capabilities: ["Rotary, reciprocating, and block-on-ring test configurations", "High-resolution multi-axis force sensing"] },
-        { name: "Bruker Contour X-100 Optical Profilometer", image: "contour-x100.jpg", summary: "A 3D optical metrology system for rapid, high-precision characterization of textured and worn surfaces.", capabilities: ["Non-contact surface-height mapping and roughness analysis", "Comparison of texture geometry and wear before and after testing"] },
-        { name: "Fiber Laser Marking & Surface Texturing System", image: "fiber-laser.jpg", summary: "Uses localized laser ablation to create repeatable patterns on specimen surfaces.", capabilities: ["Fabrication of micro-dimples, grooves, and other tailored patterns", "Preparation of laser surface texturing (LST) specimens for tribological tests"] },
-        { name: "Rotational Viscometer & Fluid Characterization Suite", image: "viscometer.jpg", summary: "Measures lubricant viscosity and how it changes with test conditions.", capabilities: ["Rotational measurements of dynamic viscosity", "Comparison of rheological behavior across shear rates and temperatures"] }
+        { id: "umt-tribolab", name: "Bruker UMT TriboLab", image: "umt-tribolab.jpg", shortSummary: "A modular multi-axis mechanical and tribological testing platform.", description: "A modular multi-axis mechanical and tribological testing platform.", capabilities: ["Rotary, reciprocating, and block-on-ring test configurations", "High-resolution multi-axis force sensing"], officialUrl: "", specs: [] },
+        { id: "fiber-laser", name: "Laser Engraver – Coherent ExactMark 210", image: "fiber-laser.jpg", shortSummary: "Class 1 enclosed 1064 nm DPSS laser workstation for high-precision micro-patterning and functional surface texturing of metals and polymers.", description: "The Coherent ExactMark 210 laser engraving system is a high-precision workstation designed for surface texturing of various materials. It integrates a 1064 nm diode-umped solid-state laser (PowerLine E Air 25) with advanced scanning optics and computer-controlled positioning for accurate and repeatable processing. The system enables the creation of micro-patterns and textures on metallic or polymeric surfaces with exceptional spatial resolution. Operating in a fully enclosed, Class 1 safety-rated housing, it provides automated control of laser parameters, motion, and focus, making it ideal for research on friction reduction, wettability tuning, and functional surface engineering.", officialUrl: "https://www.coherent.com/machines-systems/laser-marking-engraving/exactmark", specs: ["Laser Source: 1064 nm diode-pumped solid-state laser (PowerLine E Air 25)", "Safety Rating: Fully enclosed Class 1 laser housing", "Control & Optics: High-precision scanning optics with automated computer-controlled focus, motion, and laser parameters", "Target Materials: Metals and polymers (micro-patterns, dimples, and functional surface textures)"] },
+        { id: "viscometer", name: "Rotational Viscometer & Fluid Characterization Suite", image: "viscometer.jpg", shortSummary: "Measures lubricant viscosity and how it changes with test conditions.", description: "Measures lubricant viscosity and how it changes with test conditions.", capabilities: ["Rotational measurements of dynamic viscosity", "Comparison of rheological behavior across shear rates and temperatures"], officialUrl: "", specs: [] }
       ] }
     ];
 
@@ -587,8 +598,18 @@
       return researchersData.find(person => person.id === id);
     }
 
+    function getFacility(route) {
+      if (!route.startsWith("facilities/")) return null;
+      const id = route.slice("facilities/".length);
+      for (const group of facilitiesData) {
+        const machine = group.equipment.find(item => item.id === id);
+        if (machine) return { machine, category: group.title };
+      }
+      return null;
+    }
+
     function updateNavigation(route) {
-      const section = getResearcher(route) ? "people" : route;
+      const section = getResearcher(route) ? "people" : getFacility(route) ? "facilities" : route;
       nav.querySelectorAll("a").forEach(link => {
         if (link.hash === `#${section}`) link.setAttribute("aria-current", "page");
         else link.removeAttribute("aria-current");
@@ -752,16 +773,37 @@
         <div class="section-heading"><div class="eyebrow">Lab equipment</div><h1>Facilities</h1><p>Instrumentation and custom test benches for friction, wear, surface characterization, and water lubrication.</p></div>
         ${facilitiesData.map((group, index) => `<section class="facility-group" aria-labelledby="facility-group-${index}">
           <h2 id="facility-group-${index}">${escapeHTML(group.title)}</h2>
-          <div class="facilities-grid">${group.equipment.map(machine => `<article class="facility-card">
+          <div class="facilities-grid">${group.equipment.map(machine => `<article class="facility-card"><a class="facility-card-link" href="#facilities/${encodeURIComponent(machine.id)}">
             <div class="facility-media">
               <img class="facility-photo" src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
               <div class="facility-blueprint" hidden aria-hidden="true"><span>${escapeHTML(machine.name)}</span></div>
             </div>
-            <div class="facility-copy"><h3>${escapeHTML(machine.name)}</h3><p>${escapeHTML(machine.summary)}</p>
-              <ul>${machine.capabilities.map(capability => `<li>${escapeHTML(capability)}</li>`).join("")}</ul>
+            <div class="facility-copy"><h3>${escapeHTML(machine.name)}</h3><p>${escapeHTML(machine.shortSummary)}</p>
+              <span class="text-link">View Details <span aria-hidden="true">&rarr;</span></span>
             </div>
-          </article>`).join("")}</div>
+          </a></article>`).join("")}</div>
         </section>`).join("")}
+      </div></section>`;
+    }
+
+    function renderFacilityDetail({ machine, category }) {
+      const specs = machine.specs || [];
+      return `<section class="container facility-detail">
+        <div class="profile-top"><a class="back-link" href="#facilities"><span aria-hidden="true">&larr;</span> Back to Facilities</a></div>
+        <div class="profile-hero">
+          <div class="facility-detail-media">
+            <img class="facility-photo" src="facilities/${escapeHTML(machine.image)}" alt="${escapeHTML(machine.name)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+            <div class="facility-blueprint" hidden aria-hidden="true"><span>${escapeHTML(machine.name)}</span></div>
+          </div>
+          <div class="profile-details"><div class="eyebrow">${escapeHTML(category)}</div><h1>${escapeHTML(machine.name)}</h1>
+            <h2>Overview</h2><p>${escapeHTML(machine.description)}</p>
+            ${machine.officialUrl ? `<a class="button gold" href="${escapeHTML(machine.officialUrl)}" target="_blank" rel="noopener noreferrer">Official Product Page <span aria-hidden="true">&#8599;</span></a>` : ""}
+          </div>
+        </div>
+      </section>
+      <section class="profile-body"><div class="container facility-specs"><h2>Technical Specifications</h2>
+        ${specs.length ? `<ul>${specs.map(spec => `<li>${escapeHTML(spec)}</li>`).join("")}</ul>` : "<p>Detailed technical specifications will be updated soon.</p>"}
+        ${machine.capabilities?.length ? `<h2>Capabilities</h2><ul>${machine.capabilities.map(capability => `<li>${escapeHTML(capability)}</li>`).join("")}</ul>` : ""}
       </div></section>`;
     }
 
@@ -839,8 +881,10 @@
     function render() {
       let route = getRoute();
       const person = getResearcher(route);
+      const facility = getFacility(route);
       const views = { home: renderHome, people: renderPeople, research: renderResearch, facilities: renderFacilities, publications: renderPublications, news: renderNewsPage, contact: renderContact };
       if (person) app.innerHTML = renderProfile(person);
+      else if (facility) app.innerHTML = renderFacilityDetail(facility);
       else if (views[route]) app.innerHTML = views[route]();
       else {
         route = "home";
