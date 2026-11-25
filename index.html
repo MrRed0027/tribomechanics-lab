@@ -45,7 +45,7 @@
     .section.soft { background: var(--wash); }
 
     .site-header { position: sticky; z-index: 20; top: 0; border-bottom: 1px solid rgba(255,255,255,.12); background: var(--blue); color: white; box-shadow: 0 5px 22px rgba(4,33,51,.12); }
-    .nav-shell { width: min(1320px, calc(100% - 42px)); min-height: 92px; margin: auto; display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 24px; }
+    .nav-shell { width: min(1320px, calc(100% - 42px)); min-height: 89px; margin: auto; display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 24px; }
     .brand {
       display: inline-flex;
       align-items: center;
@@ -58,20 +58,20 @@
     }
     .brand:hover { transform: none; }
     .brand img {
-      width: 224px;
-      height: 74px;
+      width: 216px;
+      height: 71px;
       object-fit: contain;
       object-position: left center;
       mix-blend-mode: normal;
     }
     .nav-links { display: flex; align-items: center; justify-content: center; gap: clamp(15px, 2.4vw, 34px); }
-    .nav-links a { position: relative; padding: 11px 0; color: rgba(255,255,255,.88); font-size: 1.02rem; font-weight: 600; text-decoration: none; transition: color .2s ease; }
+    .nav-links a { position: relative; padding: 11px 0; color: rgba(255,255,255,.88); font-size: .98rem; font-weight: 600; text-decoration: none; transition: color .2s ease; }
     .nav-links a::after { position: absolute; right: 0; bottom: 3px; left: 0; height: 2px; background: var(--gold); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
     .nav-links a:hover, .nav-links a[aria-current="page"] { color: white; }
     .nav-links a:hover::after, .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
     .header-right { display: flex; align-items: center; justify-content: flex-end; gap: 18px; }
     .inst-brand { display: inline-flex; align-items: center; }
-    .inst-brand img { width: 190px; height: 81px; object-fit: contain; }
+    .inst-brand img { width: 184px; height: 78px; object-fit: contain; }
     .menu-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.3); border-radius: 12px; background: transparent; color: white; cursor: pointer; }
     .menu-toggle svg { width: 22px; height: 22px; }
 
@@ -239,11 +239,11 @@
     .empty-state { padding: 35px; border: 1px dashed #b6c4ca; border-radius: var(--radius); color: var(--muted); text-align: center; }
     :focus-visible { outline: 3px solid #e6bb42; outline-offset: 3px; }
     @media (max-width: 1080px) {
-      .nav-shell { min-height: 83px; grid-template-columns: minmax(0,1fr) minmax(0,1fr); position: relative; }
+      .nav-shell { min-height: 80px; grid-template-columns: minmax(0,1fr) minmax(0,1fr); position: relative; }
       .brand { min-width: 0; }
-      .brand img { width: 224px; }
+      .brand img { width: 216px; }
       .menu-toggle { display: inline-flex; }
-      .inst-brand img { width: 162px; height: 72px; }
+      .inst-brand img { width: 157px; height: 69px; }
       .nav-links { position: absolute; top: 100%; right: 0; left: 0; display: none; align-items: stretch; padding: 12px 24px 20px; border-top: 1px solid rgba(255,255,255,.12); background: var(--blue); }
       .nav-links.is-open { display: flex; flex-direction: column; gap: 2px; }
       .nav-links a { padding: 11px 4px; }
@@ -267,9 +267,9 @@
       .container { width: min(var(--content),calc(100% - 34px)); }
       .section { padding: 62px 0; }
       .nav-shell { width: calc(100% - 30px); gap: 12px; }
-      .brand img { width: 155px; height: 62px; }
+      .brand img { width: 149px; height: 59px; }
       .header-right { gap: 10px; }
-      .inst-brand img { width: 103px; height: 60px; }
+      .inst-brand img { width: 99px; height: 58px; }
       .menu-toggle { width: 40px; height: 40px; }
       .hero { min-height: 0; background-image: linear-gradient(90deg,rgba(7,24,34,.91),rgba(7,24,34,.68)),url("hero-bg.jpg"); background-position: center,62% center; }
       .hero h1 { font-size: 2.45rem; }
